@@ -1,0 +1,37 @@
+[main] INFO  o.o.codegen.DefaultGenerator - Generating with dryRun=false
+[main] INFO  o.o.c.ignore.CodegenIgnoreProcessor - Output directory (/Users/christian.konrad/Development/Projects/Camunda/openapi-connector-template-generator/generated/openapi-connector-templates) does not exist, or is inaccessible. No file (.openapi-generator-ignore) will be evaluated.
+[main] INFO  o.o.codegen.DefaultGenerator - OpenAPI Generator: javascript (client)
+[main] INFO  o.o.codegen.DefaultGenerator - Generator 'javascript' is considered stable.
+[main] INFO  o.o.c.l.JavascriptClientCodegen - Using JS ES6 templates
+[main] INFO  o.o.c.l.JavascriptClientCodegen - Environment variable JS_POST_PROCESS_FILE not defined so the JS code may not be properly formatted. To define it, try 'export JS_POST_PROCESS_FILE="/usr/local/bin/js-beautify -r -f"' (Linux/Mac)
+[main] INFO  o.o.c.l.JavascriptClientCodegen - NOTE: To enable file post-processing, 'enablePostProcessFile' must be set to `true` (--enable-post-process-file for CLI).
+[main] INFO  o.o.codegen.utils.URLPathUtils - 'host' (OAS 2.0) or 'servers' (OAS 3.0) not defined in the spec. Default to [http://localhost] for server URL [http://localhost/]
+[main] INFO  o.o.codegen.utils.URLPathUtils - 'host' (OAS 2.0) or 'servers' (OAS 3.0) not defined in the spec. Default to [http://localhost] for server URL [http://localhost/]
+[main] INFO  o.o.codegen.TemplateManager - writing file /Users/christian.konrad/Development/Projects/Camunda/openapi-connector-template-generator/generated/openapi-connector-templates/src/model/ErrorResponse.js
+[main] INFO  o.o.codegen.TemplateManager - writing file /Users/christian.konrad/Development/Projects/Camunda/openapi-connector-template-generator/generated/openapi-connector-templates/test/model/ErrorResponse.spec.js
+[main] INFO  o.o.codegen.TemplateManager - writing file /Users/christian.konrad/Development/Projects/Camunda/openapi-connector-template-generator/generated/openapi-connector-templates/docs/ErrorResponse.md
+[main] INFO  o.o.codegen.TemplateManager - writing file /Users/christian.konrad/Development/Projects/Camunda/openapi-connector-template-generator/generated/openapi-connector-templates/src/model/InlineResponse200.js
+[main] INFO  o.o.codegen.TemplateManager - writing file /Users/christian.konrad/Development/Projects/Camunda/openapi-connector-template-generator/generated/openapi-connector-templates/test/model/InlineResponse200.spec.js
+[main] INFO  o.o.codegen.TemplateManager - writing file /Users/christian.konrad/Development/Projects/Camunda/openapi-connector-template-generator/generated/openapi-connector-templates/docs/InlineResponse200.md
+[main] INFO  o.o.codegen.utils.URLPathUtils - 'host' (OAS 2.0) or 'servers' (OAS 3.0) not defined in the spec. Default to [http://localhost] for server URL [http://localhost/]
+[main] INFO  o.o.codegen.TemplateManager - writing file /Users/christian.konrad/Development/Projects/Camunda/openapi-connector-template-generator/generated/openapi-connector-templates/src/api/TestApi.js
+[main] INFO  o.o.codegen.TemplateManager - writing file /Users/christian.konrad/Development/Projects/Camunda/openapi-connector-template-generator/generated/openapi-connector-templates/test/api/TestApi.spec.js
+[main] INFO  o.o.codegen.TemplateManager - writing file /Users/christian.konrad/Development/Projects/Camunda/openapi-connector-template-generator/generated/openapi-connector-templates/docs/TestApi.md
+[main] INFO  o.o.codegen.utils.URLPathUtils - 'host' (OAS 2.0) or 'servers' (OAS 3.0) not defined in the spec. Default to [http://localhost] for server URL [http://localhost/]
+[main] INFO  o.o.codegen.TemplateManager - writing file /Users/christian.konrad/Development/Projects/Camunda/openapi-connector-template-generator/generated/openapi-connector-templates/package.json
+[main] INFO  o.o.codegen.TemplateManager - writing file /Users/christian.konrad/Development/Projects/Camunda/openapi-connector-template-generator/generated/openapi-connector-templates/git_push.sh
+[main] INFO  o.o.codegen.TemplateManager - writing file /Users/christian.konrad/Development/Projects/Camunda/openapi-connector-template-generator/generated/openapi-connector-templates/README.md
+[main] INFO  o.o.codegen.TemplateManager - writing file /Users/christian.konrad/Development/Projects/Camunda/openapi-connector-template-generator/generated/openapi-connector-templates/mocha.opts
+[main] INFO  o.o.codegen.TemplateManager - writing file /Users/christian.konrad/Development/Projects/Camunda/openapi-connector-template-generator/generated/openapi-connector-templates/.travis.yml
+[main] INFO  o.o.codegen.TemplateManager - writing file /Users/christian.konrad/Development/Projects/Camunda/openapi-connector-template-generator/generated/openapi-connector-templates/.babelrc
+[main] INFO  o.o.codegen.TemplateManager - writing file /Users/christian.konrad/Development/Projects/Camunda/openapi-connector-template-generator/generated/openapi-connector-templates/.gitignore
+[main] INFO  o.o.codegen.TemplateManager - writing file /Users/christian.konrad/Development/Projects/Camunda/openapi-connector-template-generator/generated/openapi-connector-templates/src/index.js
+[main] INFO  o.o.codegen.TemplateManager - writing file /Users/christian.konrad/Development/Projects/Camunda/openapi-connector-template-generator/generated/openapi-connector-templates/src/ApiClient.js
+[main] INFO  o.o.codegen.TemplateManager - writing file /Users/christian.konrad/Development/Projects/Camunda/openapi-connector-template-generator/generated/openapi-connector-templates/.openapi-generator-ignore
+[main] INFO  o.o.codegen.TemplateManager - writing file /Users/christian.konrad/Development/Projects/Camunda/openapi-connector-template-generator/generated/openapi-connector-templates/.openapi-generator/VERSION
+[main] INFO  o.o.codegen.TemplateManager - writing file /Users/christian.konrad/Development/Projects/Camunda/openapi-connector-template-generator/generated/openapi-connector-templates/.openapi-generator/FILES
+################################################################################
+# Thanks for using OpenAPI Generator.                                          #
+# Please consider donation to help us maintain this project 🙏                 #
+# https://opencollective.com/openapi_generator/donate                          #
+################################################################################
