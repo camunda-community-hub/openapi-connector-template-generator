@@ -1,1 +1,33 @@
-Hello example§
+[
+    {
+        "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+        "name": "{{classname}}",
+        "id": "connector.{{classname}}",
+        "description": "{{description}}",
+        "version": 1,
+        "appliesTo": [
+          "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:ServiceTask"
+    },
+    "properties": [
+        {
+        "label": "REST Method",
+        "description": "Specify the HTTP method to use.",
+        "type": "Dropdown",
+        "choices": [
+          {{#operations}}
+            {{#operation}}
+              { "name": "{{operationId}}", "value": "{{operationId}}" }{{^-last}},{{/-last}}
+            {{/operation}}
+          {{/operations}}
+        ],
+        "binding": {
+          "type": "zeebe:taskHeader",
+          "key": "method"
+        }
+      }
+    ]
+  }
+]

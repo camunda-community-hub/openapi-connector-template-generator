@@ -88,60 +88,16 @@ public class ConnectorsCodegenGenerator extends DefaultCodegen implements Codege
      * as with models, add multiple entries with different extensions for multiple files per
      * class
      */
-    // apiTemplateFiles.put(
-    //   "api.mustache",   // the template to use
-    //   ".sample");       // the extension for each file to write
+    apiTemplateFiles.put(
+      "elementTemplate.mustache",   // the template to use
+      ".json");       // the extension for each file to write
+
 
     /**
      * Template Location.  This is the location which templates will be read from.  The generator
      * will use the resource stream to attempt to read the templates.
      */
     templateDir = "connectors-codegen";
-
-    /**
-     * Api Package.  Optional, if needed, this can be used in templates
-     */
-    apiPackage = "org.openapitools.api";
-
-    /**
-     * Model Package.  Optional, if needed, this can be used in templates
-     */
-    modelPackage = "org.openapitools.model";
-
-    /**
-     * Reserved words.  Override this with reserved words specific to your language
-     */
-    reservedWords = new HashSet<String> (
-      Arrays.asList(
-        "sample1",  // replace with static values
-        "sample2")
-    );
-
-    /**
-     * Additional Properties.  These values can be passed to the templates and
-     * are available in models, apis, and supporting files
-     */
-    additionalProperties.put("apiVersion", apiVersion);
-
-    /**
-     * Supporting Files.  You can write single files for the generator with the
-     * entire object tree available.  If the input file has a suffix of `.mustache
-     * it will be processed by the template engine.  Otherwise, it will be copied
-     */
-    supportingFiles.add(new SupportingFile("elementTemplate.mustache",   // the input template or file
-      "",                                                       // the destination folder, relative `outputFolder`
-      "elementTemplate.sample")                                          // the output file
-    );
-
-    /**
-     * Language Specific Primitives.  These types will not trigger imports by
-     * the client generator
-     */
-    languageSpecificPrimitives = new HashSet<String>(
-      Arrays.asList(
-        "Type1",      // replace these with your types
-        "Type2")
-    );
   }
 
   /**
@@ -169,7 +125,7 @@ public class ConnectorsCodegenGenerator extends DefaultCodegen implements Codege
    */
   @Override
   public String apiFileFolder() {
-    return outputFolder + "/" + sourceFolder + "/" + apiPackage().replace('.', File.separatorChar);
+    return outputFolder;
   }
 
   /**
