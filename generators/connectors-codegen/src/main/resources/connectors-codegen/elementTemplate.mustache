@@ -34,6 +34,14 @@
                 }
             },
             {
+                "type": "Hidden",
+                "value": "placeholder",
+                "binding": {
+                    "type": "zeebe:input",
+                    "name": "objects"
+                }
+            },
+            {
                 "label": "Operation",
                 "id": "operation",
                 "description": "Specify the operation to call.",
@@ -50,7 +58,7 @@
                 ],
                 "binding": {
                     "type": "zeebe:taskHeader",
-                    "key": "method"
+                    "key": "operation"
                 }
             },
             {{#operations}}
@@ -108,7 +116,7 @@
                 "value": "{{defaultValue}}",
                 "binding": {
                     "type": "zeebe:input",
-                    "name": "{{operationId}}_{{paramName}}"
+                    "name": "objects.{{operationId}}_{{paramName}}"
                 },
                 "condition": {
                     "property": "operation",
@@ -139,7 +147,7 @@
             "group": "{{operationId}}",
             "type": "String",
             "feel": "required",
-            "value": "= { {{#allParams}}{{paramName}}: {{operationId}}_{{paramName}}{{^-last}}, {{/-last}}{{/allParams}} }",
+            "value": "= { {{#allParams}}{{paramName}}: objects.{{operationId}}_{{paramName}}{{^-last}}, {{/-last}}{{/allParams}} }",
             "binding": {
             "type": "zeebe:input",
             "name": "body"
