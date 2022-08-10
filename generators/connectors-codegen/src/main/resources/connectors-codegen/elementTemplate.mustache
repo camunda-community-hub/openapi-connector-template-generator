@@ -2,32 +2,135 @@
     {
         "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
         "name": "{{classname}}",
-        "id": "connector.{{classname}}",
-        "description": "{{description}}",
+        "id": "com.camunda.generated.{{classname}}",
+        "description": "{{summary}}",
         "version": 1,
         "appliesTo": [
-          "bpmn:Task"
-    ],
-    "elementType": {
-      "value": "bpmn:ServiceTask"
-    },
-    "properties": [
-        {
-        "label": "REST Method",
-        "description": "Specify the HTTP method to use.",
-        "type": "Dropdown",
-        "choices": [
-          {{#operations}}
-            {{#operation}}
-              { "name": "{{operationId}}", "value": "{{operationId}}" }{{^-last}},{{/-last}}
-            {{/operation}}
-          {{/operations}}
+            "bpmn:Task"
         ],
-        "binding": {
-          "type": "zeebe:taskHeader",
-          "key": "method"
-        }
-      }
-    ]
-  }
+        "elementType": {
+            "value": "bpmn:ServiceTask"
+        },
+        "groups": [
+            {
+                "id": "operation",
+                "label": "Operation"
+            },
+        {{#operations}}
+            {{#operation}}
+            {
+                "id": "{{operationId}}",
+                "label": "{{operationId}}"
+            }{{^-last}},{{/-last}}
+            {{/operation}}
+        {{/operations}}
+        ],
+        "properties": [
+            {
+                "label": "Operation",
+                "id": "operation",
+                "description": "Specify the operation to call.",
+                "type": "Dropdown",
+                "group": "operation",
+                "value": "{{#operations}}{{#operation}}{{#-first}}{{operationId}}{{/-first}}{{/operation}}{{/operations}}",
+                "choices": [
+                    { "name": "Reset choice", "value": "-" },
+                    {{#operations}}
+                        {{#operation}}
+                        { "name": "{{operationId}}", "value": "{{operationId}}" }{{^-last}},{{/-last}}
+                        {{/operation}}
+                    {{/operations}}
+                ],
+                "binding": {
+                    "type": "zeebe:taskHeader",
+                    "key": "method"
+                }
+            },            
+            {{#operations}}
+                {{#operation}}
+            {
+                "label": "URL",
+                "group": "{{operationId}}",
+                "type": "String",
+                "feel": "optional",
+                "value": "{{basePath}}{{path}}",
+                "binding": {
+                    "type": "zeebe:input",
+                    "name": "url"
+                },
+                "condition": {
+                    "property": "operation",
+                    "equals": "{{operationId}}"
+                },
+                "constraints": {
+                    "notEmpty": true,
+                    "pattern": {
+                        "value": "^https?://.*",
+                        "message": "Must be a http(s) URL."
+                    }
+                }
+            },
+            {
+                "label": "Method",
+                "group": "{{operationId}}",
+                "type": "Dropdown",
+                "value": "{{#lambda.lowercase}}{{httpMethod}}{{/lambda.lowercase}}",
+                "condition": {
+                    "property": "operation",
+                    "equals": "{{operationId}}"
+                },
+                "choices": [
+                    { "name": "GET", "value": "get" },
+                    { "name": "POST", "value": "post" },
+                    { "name": "PATCH", "value": "patch" },
+                    { "name": "PUT", "value": "put" },
+                    { "name": "DELETE", "value": "delete" }
+                ],
+                "binding": {
+                "type": "zeebe:input",
+                "name": "method"
+                }
+            },
+                {{#allParams}}
+            {
+                "label": "{{paramName}}",
+                "description": "{{description}}",
+                "type": "String",
+                "feel": "optional",
+                "group": "{{operationId}}",
+                "value": "{{defaultValue}}",
+                "binding": {
+                    "type": "zeebe:input",
+                    "name": "{{operationId}}-{{paramName}}"
+                },
+                "condition": {
+                    "property": "operation",
+                    "equals": "{{operationId}}"
+                },
+                "constraints": {
+                    "notEmpty": true
+                }
+            },
+                {{/allParams}}
+            {
+                "label": "Request Body",
+                "description": "JSON payload to send with the request",
+                "group": "{{operationId}}",
+                "type": "Text",
+                "feel": "required",
+                "value": "= {\n{{#allParams}}\t{{paramName}}: {{operationId}}-{{paramName}}{{^-last}},\n{{/-last}}{{/allParams}}\n}",
+                "binding": {
+                    "type": "zeebe:input",
+                    "name": "body"
+                },
+                "condition": {
+                    "property": "operation",
+                    "equals": "{{operationId}}"
+                },
+                "optional": true
+            }{{^-last}}, {{/-last}}
+                {{/operation}}                
+            {{/operations}}         
+        ]
+    }
 ]

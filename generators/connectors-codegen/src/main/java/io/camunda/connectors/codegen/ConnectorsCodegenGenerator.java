@@ -7,6 +7,8 @@ import io.swagger.models.properties.*;
 import java.util.*;
 import java.io.File;
 
+// TODO preprocess URLs (e.g. "= \"/pet/\" + petId")
+
 public class ConnectorsCodegenGenerator extends DefaultCodegen implements CodegenConfig {
 
   // source folder where to write the files
