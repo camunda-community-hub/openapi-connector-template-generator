@@ -1,0 +1,36 @@
+[
+    {
+        "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+        "name": "PetApi",
+        "id": "connector.PetApi",
+        "description": "",
+        "version": 1,
+        "appliesTo": [
+          "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:ServiceTask"
+    },
+    "properties": [
+        {
+        "label": "REST Method",
+        "description": "Specify the HTTP method to use.",
+        "type": "Dropdown",
+        "choices": [
+              { "name": "addPet", "value": "addPet" },
+              { "name": "deletePet", "value": "deletePet" },
+              { "name": "findPetsByStatus", "value": "findPetsByStatus" },
+              { "name": "findPetsByTags", "value": "findPetsByTags" },
+              { "name": "getPetById", "value": "getPetById" },
+              { "name": "updatePet", "value": "updatePet" },
+              { "name": "updatePetWithForm", "value": "updatePetWithForm" },
+              { "name": "uploadFile", "value": "uploadFile" }
+        ],
+        "binding": {
+          "type": "zeebe:taskHeader",
+          "key": "method"
+        }
+      }
+    ]
+  }
+]

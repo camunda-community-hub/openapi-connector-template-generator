@@ -1,0 +1,4 @@
+.openapi-generator-ignore
+PetApi.json
+StoreApi.json
+UserApi.json

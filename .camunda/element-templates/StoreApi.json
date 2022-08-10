@@ -1,0 +1,32 @@
+[
+    {
+        "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+        "name": "StoreApi",
+        "id": "connector.StoreApi",
+        "description": "",
+        "version": 1,
+        "appliesTo": [
+          "bpmn:Task"
+    ],
+    "elementType": {
+      "value": "bpmn:ServiceTask"
+    },
+    "properties": [
+        {
+        "label": "REST Method",
+        "description": "Specify the HTTP method to use.",
+        "type": "Dropdown",
+        "choices": [
+              { "name": "deleteOrder", "value": "deleteOrder" },
+              { "name": "getInventory", "value": "getInventory" },
+              { "name": "getOrderById", "value": "getOrderById" },
+              { "name": "placeOrder", "value": "placeOrder" }
+        ],
+        "binding": {
+          "type": "zeebe:taskHeader",
+          "key": "method"
+        }
+      }
+    ]
+  }
+]
