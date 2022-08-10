@@ -27,6 +27,13 @@
         ],
         "properties": [
             {
+                "type": "Hidden",
+                "value": "io.camunda:http-json:1",
+                "binding": {
+                    "type": "zeebe:taskDefinition:type"
+                }
+            },
+            {
                 "label": "Operation",
                 "id": "operation",
                 "description": "Specify the operation to call.",
@@ -45,7 +52,7 @@
                     "type": "zeebe:taskHeader",
                     "key": "method"
                 }
-            },            
+            },
             {{#operations}}
                 {{#operation}}
             {
@@ -87,11 +94,11 @@
                     { "name": "DELETE", "value": "delete" }
                 ],
                 "binding": {
-                "type": "zeebe:input",
-                "name": "method"
+                    "type": "zeebe:input",
+                    "name": "method"
                 }
             },
-                {{#allParams}}
+            {{#allParams}}
             {
                 "label": "{{paramName}}",
                 "description": "{{description}}",
@@ -101,7 +108,7 @@
                 "value": "{{defaultValue}}",
                 "binding": {
                     "type": "zeebe:input",
-                    "name": "{{operationId}}-{{paramName}}"
+                    "name": "{{operationId}}_{{paramName}}"
                 },
                 "condition": {
                     "property": "operation",
@@ -111,26 +118,40 @@
                     "notEmpty": true
                 }
             },
-                {{/allParams}}
+            {{/allParams}}
             {
-                "label": "Request Body",
-                "description": "JSON payload to send with the request",
+                "label": "Result Variable",
+                "description": "Name of variable to store the response in",
                 "group": "{{operationId}}",
-                "type": "Text",
-                "feel": "required",
-                "value": "= {\n{{#allParams}}\t{{paramName}}: {{operationId}}-{{paramName}}{{^-last}},\n{{/-last}}{{/allParams}}\n}",
+                "type": "String",
                 "binding": {
-                    "type": "zeebe:input",
-                    "name": "body"
+                    "type": "zeebe:taskHeader",
+                    "key": "resultVariable"
                 },
                 "condition": {
                     "property": "operation",
                     "equals": "{{operationId}}"
-                },
-                "optional": true
+                }
+            },
+            {
+            "label": "Request Body",
+            "description": "JSON payload to send with the request",
+            "group": "{{operationId}}",
+            "type": "String",
+            "feel": "required",
+            "value": "= { {{#allParams}}{{paramName}}: {{operationId}}_{{paramName}}{{^-last}}, {{/-last}}{{/allParams}} }",
+            "binding": {
+            "type": "zeebe:input",
+            "name": "body"
+            },
+            "condition": {
+                "property": "operation",
+                "equals": "{{operationId}}"
+            },
+            "optional": true
             }{{^-last}}, {{/-last}}
-                {{/operation}}                
-            {{/operations}}         
+                {{/operation}}
+            {{/operations}}
         ]
     }
 ]
