@@ -1,11 +1,6 @@
-rm -rf log
-mkdir log
+cd generators/connectors-codegen
+mvn package -DskipTests
+cd -
 
-rm -rf generated/*
-
-java -jar openapi-generator-cli-5.1.1.jar generate \
-    -i openapi/main.yaml \
-    -g javascript \
-    -c config.json \
-    -o generated/openapi-connector-templates \
-    --additional-properties="foo=bar" 2>&1 | tee log/openapi-codegen-json.log
+java -cp generators/connectors-codegen/target/connectors-codegen-openapi-generator-1.0.0.jar:openapi-generator-cli.jar \
+     org.openapitools.codegen.OpenAPIGenerator generate -g connectors-codegen -i in.yaml -o out
