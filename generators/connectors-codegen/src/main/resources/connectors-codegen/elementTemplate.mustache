@@ -106,7 +106,7 @@
                 "type": "String",
                 "feel": "{{#isBodyParam}}required{{/isBodyParam}}{{^isBodyParam}}optional{{/isBodyParam}}",
                 "group": "{{operationId}}",
-                "value": "{{defaultValue}}",
+                "value": "{{#isBodyParam}}=<{{baseName}}>{{/isBodyParam}}{{^isBodyParam}}{{defaultValue}}{{/isBodyParam}}",
                 "binding": {
                     "type": "zeebe:input",
                     "name": "objects.{{operationId}}_{{paramName}}"

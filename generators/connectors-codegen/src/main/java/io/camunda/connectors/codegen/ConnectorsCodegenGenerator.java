@@ -87,9 +87,9 @@ public class ConnectorsCodegenGenerator extends DefaultCodegen implements Codege
      * for multiple files for model, just put another entry in the `modelTemplateFiles` with
      * a different extension
      */
-    // modelTemplateFiles.put(
-    //   "model.mustache", // the template to use
-    //   ".sample");       // the extension for each file to write
+    modelTemplateFiles.put(
+      "models.mustache", // the template to use
+      ".feel");       // the extension for each file to write
 
     /**
      * Api classes.  You can write classes for each Api file with the apiTemplateFiles map.

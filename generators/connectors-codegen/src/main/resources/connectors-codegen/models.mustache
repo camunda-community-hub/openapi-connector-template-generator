@@ -1,14 +1,1 @@
-{
-{{#models}}
-    {{#model}}
-        {{#parent}}
-            {{#parentVars}}
-    \"{{name}}\": {{#defaultValue}}{{.}}{{/defaultValue}}{{^-last}},{{/-last}}
-            {{/parentVars}}
-        {{/parent}}
-            {{#vars}}
-    \"{{name}}\": {{#defaultValue}}{{.}}{{/defaultValue}}{{^-last}},{{/-last}}
-            {{/vars}}
-    {{/model}}
-{{/models}}
-}
+{\\n{{#models}}{{#model}}{{#parent}}{{#parentVars}}\\t\\\"{{name}}\\\": {{#defaultValue}}{{.}}{{/defaultValue}}{{^-last}},{{/-last}}\\n{{/parentVars}}{{/parent}}{{#vars}}\\t\\\"{{name}}\\\": {{#defaultValue}}{{.}}{{/defaultValue}}{{^-last}},{{/-last}}\\n{{/vars}}{{/model}}{{/models}}}
