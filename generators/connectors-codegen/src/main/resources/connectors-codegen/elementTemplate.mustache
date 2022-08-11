@@ -183,7 +183,7 @@
                 "type": "String",
                 "feel": "{{#isBodyParam}}required{{/isBodyParam}}{{^isBodyParam}}optional{{/isBodyParam}}",
                 "group": "{{operationId}}",
-                "value": "{{defaultValue}}",
+                "value": "{{#isBodyParam}}=<{{baseName}}>{{/isBodyParam}}{{^isBodyParam}}{{defaultValue}}{{/isBodyParam}}",
                 "binding": {
                     "type": "zeebe:input",
                     "name": "objects.{{operationId}}_{{paramName}}"
@@ -210,6 +210,23 @@
                     "property": "operation",
                     "equals": "{{operationId}}"
                 }
+            },
+            {
+                "label": "Request Body",
+                "description": "JSON payload to send with the request",
+                "group": "{{operationId}}",
+                "type": "String",
+                "feel": "required",
+                "value": "={{#bodyParams}} objects.{{operationId}}_{{paramName}}{{/bodyParams}}",
+                "binding": {
+                "type": "zeebe:input",
+                "name": "body"
+            },
+            "condition": {
+                "property": "operation",
+                "equals": "{{operationId}}"
+            },
+            "optional": true
             },
             {
                 "label": "Query Parameters",
