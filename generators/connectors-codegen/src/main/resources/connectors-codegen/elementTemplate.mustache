@@ -220,7 +220,7 @@
             "group": "{{operationId}}",
             "type": "String",
             "feel": "required",
-            "value": "= {{#bodyParams}}objects.{{operationId}}_{{paramName}}{{/bodyParams}}",
+            "value": "={{#bodyParams}} objects.{{operationId}}_{{paramName}}{{/bodyParams}}",
             "binding": {
             "type": "zeebe:input",
             "name": "body"
