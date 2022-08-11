@@ -21,6 +21,10 @@ for FILE in .camunda/element-templates/src/*.feel; do
      CONTENTS=`cat $FILE`
 
      for APIFILE in .camunda/element-templates/*.json; do
-          sed -i '' "s@$REPLACE@$CONTENTS@g" $APIFILE
+          if [ $os = "unix" ]; then
+            sed -i '' "s@$REPLACE@$CONTENTS@g" "$APIFILE"
+          else
+            sed -i "s@$REPLACE@$CONTENTS@g" "$APIFILE"
+          fi
      done
 done
