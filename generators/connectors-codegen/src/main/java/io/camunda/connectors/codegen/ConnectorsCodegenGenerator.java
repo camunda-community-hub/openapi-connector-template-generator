@@ -1,11 +1,15 @@
 package io.camunda.connectors.codegen;
 
+import com.google.common.collect.ImmutableMap;
+import com.samskivert.mustache.Mustache;
 import org.openapitools.codegen.*;
 import org.openapitools.codegen.model.*;
 import io.swagger.models.properties.*;
+import org.openapitools.codegen.templating.mustache.*;
 
 import java.util.*;
 import java.io.File;
+import java.util.stream.Collectors;
 
 // TODO preprocess URLs (e.g. "= \"/pet/\" + petId")
 
@@ -54,9 +58,17 @@ public class ConnectorsCodegenGenerator extends DefaultCodegen implements Codege
     for(CodegenOperation co : opList){
       // example:
       // co.httpMethod = co.httpMethod.toLowerCase();
+      removePathParameters(co);
     }
 
     return results;
+  }
+
+  private void removePathParameters(CodegenOperation co) {
+    final List<CodegenParameter> paramsToRemove = co.allParams.stream()
+            .filter(param -> param.isPathParam)
+            .collect(Collectors.toList());
+    co.allParams.removeAll(paramsToRemove);
   }
 
   /**
