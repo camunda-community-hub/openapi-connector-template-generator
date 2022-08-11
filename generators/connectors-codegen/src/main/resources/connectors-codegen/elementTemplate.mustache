@@ -68,7 +68,7 @@
                 "group": "{{operationId}}",
                 "type": "String",
                 "feel": "optional",
-                "value": "{{basePath}}{{path}}",
+                "value": "=\"{{basePath}}{{{path}}}\"",
                 "binding": {
                     "type": "zeebe:input",
                     "name": "url"
@@ -76,13 +76,6 @@
                 "condition": {
                     "property": "operation",
                     "equals": "{{operationId}}"
-                },
-                "constraints": {
-                    "notEmpty": true,
-                    "pattern": {
-                        "value": "^https?://.*",
-                        "message": "Must be a http(s) URL."
-                    }
                 }
             },
             {
