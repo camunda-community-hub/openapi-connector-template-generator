@@ -61,8 +61,88 @@
                     "key": "operation"
                 }
             },
+
             {{#operations}}
                 {{#operation}}
+                    {{#hasAuthMethods}}
+                        {{#authMethods}}
+                            {{#isBasicBasic}}
+            {
+                "type": "Hidden",
+                "value": "basic",
+                "group": "{{operationId}}",
+                "binding": {
+                    "type": "zeebe:input",
+                    "name": "authentication.type"
+                }
+            },
+            {
+                "label": "API Username (Basic Authentication)",
+                "group": "authentication",
+                "type": "String",
+                "group": "{{operationId}}",
+                "feel": "optional",
+                "binding": {
+                    "type": "zeebe:input",
+                    "name": "authentication.username"
+                },
+                "condition": {
+                    "property": "operation",
+                    "equals": "{{operationId}}"
+                },
+                "constraints": {
+                    "notEmpty": true
+                }
+            },
+            {
+                "label": "API Password (Basic Authentication)",
+                "group": "authentication",
+                "type": "String",
+                "group": "{{operationId}}",
+                "feel": "optional",
+                "binding": {
+                    "type": "zeebe:input",
+                    "name": "authentication.password"
+                },
+                "condition": {
+                    "property": "operation",
+                    "equals": "{{operationId}}"
+                },
+                "constraints": {
+                    "notEmpty": true
+                }
+            },              {{/isBasicBasic}}
+                            {{#isBasicBearer}}
+            {
+                "type": "Hidden",
+                "value": "bearer",
+                "group": "{{operationId}}",
+                "binding": {
+                    "type": "zeebe:input",
+                    "name": "authentication.type"
+                }
+            },
+            {
+                "label": "API Bearer Token (Bearer Authentication)",
+                "group": "authentication",
+                "type": "String",
+                "feel": "optional",
+                "group": "{{operationId}}",
+                "binding": {
+                    "type": "zeebe:input",
+                    "name": "authentication.token"
+                },
+                "condition": {
+                    "property": "operation",
+                    "equals": "{{operationId}}"
+                },
+                "constraints": {
+                    "notEmpty": true
+                }
+            },
+                        {{/isBasicBearer}}
+                    {{/authMethods}}
+                {{/hasAuthMethods}}
             {
                 "label": "URL",
                 "group": "{{operationId}}",
@@ -106,7 +186,7 @@
                 "type": "String",
                 "feel": "{{#isBodyParam}}required{{/isBodyParam}}{{^isBodyParam}}optional{{/isBodyParam}}",
                 "group": "{{operationId}}",
-                "value": "{{#isBodyParam}}=<{{baseName}}>{{/isBodyParam}}{{^isBodyParam}}{{defaultValue}}{{/isBodyParam}}",
+                "value": "{{defaultValue}}",
                 "binding": {
                     "type": "zeebe:input",
                     "name": "objects.{{operationId}}_{{paramName}}"
@@ -135,41 +215,24 @@
                 }
             },
             {
-                "label": "Request Body",
-                "description": "JSON payload to send with the request",
-                "group": "{{operationId}}",
-                "type": "String",
-                "feel": "required",
-                "value": "{{#bodyParams}}= objects.{{operationId}}_{{paramName}}{{/bodyParams}}",
-                "binding": {
-                    "type": "zeebe:input",
-                    "name": "body"
-                },
-                "condition": {
-                    "property": "operation",
-                    "equals": "{{operationId}}"
-                },
-                "optional": true
+            "label": "Request Body",
+            "description": "JSON payload to send with the request",
+            "group": "{{operationId}}",
+            "type": "String",
+            "feel": "required",
+            "value": "= {{#bodyParams}}objects.{{operationId}}_{{paramName}}{{/bodyParams}}",
+            "binding": {
+            "type": "zeebe:input",
+            "name": "body"
             },
-            {
-                "label": "Query Parameters",
-                "description": "FEEL map containing the query parameters",
-                "group": "{{operationId}}",
-                "type": "String",
-                "feel": "required",
-                "value": "={\n{{#queryParams}}\t\"{{paramName}}\": objects.{{operationId}}_{{paramName}}{{^-last}},{{/-last}}\n{{/queryParams}}}",
-                "binding": {
-                    "type": "zeebe:input",
-                    "name": "queryParameters"
-                },
-                "condition": {
-                    "property": "operation",
-                    "equals": "{{operationId}}"
-                },
-                "optional": true
-            }{{^-last}}, {{/-last}}
-                {{/operation}}
-            {{/operations}}
+            "condition": {
+                "property": "operation",
+                "equals": "{{operationId}}"
+            },
+            "optional": true
+            }{{^-last}},{{/-last}}
+        {{/operation}}
+    {{/operations}}
         ]
     }
 ]
