@@ -104,7 +104,7 @@
                 "label": "{{paramName}}",
                 "description": "{{description}}",
                 "type": "String",
-                "feel": "optional",
+                "feel": "{{#isBodyParam}}required{{/isBodyParam}}{{^isBodyParam}}optional{{/isBodyParam}}",
                 "group": "{{operationId}}",
                 "value": "{{defaultValue}}",
                 "binding": {
@@ -140,7 +140,7 @@
             "group": "{{operationId}}",
             "type": "String",
             "feel": "required",
-            "value": "= { {{#allParams}}{{paramName}}: objects.{{operationId}}_{{paramName}}{{^-last}}, {{/-last}}{{/allParams}} }",
+            "value": "= {{#bodyParams}}objects.{{operationId}}_{{paramName}}{{/bodyParams}}",
             "binding": {
             "type": "zeebe:input",
             "name": "body"
