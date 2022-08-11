@@ -135,21 +135,38 @@
                 }
             },
             {
-            "label": "Request Body",
-            "description": "JSON payload to send with the request",
-            "group": "{{operationId}}",
-            "type": "String",
-            "feel": "required",
-            "value": "= {{#bodyParams}}objects.{{operationId}}_{{paramName}}{{/bodyParams}}",
-            "binding": {
-            "type": "zeebe:input",
-            "name": "body"
+                "label": "Request Body",
+                "description": "JSON payload to send with the request",
+                "group": "{{operationId}}",
+                "type": "String",
+                "feel": "required",
+                "value": "{{#bodyParams}}= objects.{{operationId}}_{{paramName}}{{/bodyParams}}",
+                "binding": {
+                    "type": "zeebe:input",
+                    "name": "body"
+                },
+                "condition": {
+                    "property": "operation",
+                    "equals": "{{operationId}}"
+                },
+                "optional": true
             },
-            "condition": {
-                "property": "operation",
-                "equals": "{{operationId}}"
-            },
-            "optional": true
+            {
+                "label": "Query Parameters",
+                "description": "FEEL map containing the query parameters",
+                "group": "{{operationId}}",
+                "type": "String",
+                "feel": "required",
+                "value": "={\n{{#queryParams}}\t\"{{paramName}}\": objects.{{operationId}}_{{paramName}}{{^-last}},{{/-last}}\n{{/queryParams}}}",
+                "binding": {
+                    "type": "zeebe:input",
+                    "name": "queryParameters"
+                },
+                "condition": {
+                    "property": "operation",
+                    "equals": "{{operationId}}"
+                },
+                "optional": true
             }{{^-last}}, {{/-last}}
                 {{/operation}}
             {{/operations}}

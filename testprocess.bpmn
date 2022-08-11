@@ -21,14 +21,15 @@
         <zeebe:taskDefinition type="io.camunda:http-json:1" />
         <zeebe:ioMapping>
           <zeebe:input source="placeholder" target="objects" />
-          <zeebe:input source="=&#34;https://petstore.swagger.io/v2/pet&#34;" target="url" />
-          <zeebe:input source="post" target="method" />
-          <zeebe:input source="={&#10;	&#34;id&#34;: null,&#10;	&#34;category&#34;: null,&#10;	&#34;name&#34;: null,&#10;	&#34;photoUrls&#34;: null,&#10;	&#34;tags&#34;: null,&#10;	&#34;status&#34;: null&#10;}" target="objects.addPet_pet" />
-          <zeebe:input source="= objects.addPet_pet" target="body" />
+          <zeebe:input source="={&#10;	&#34;status&#34;: objects.findPetsByStatus_status&#10;}" target="test" />
+          <zeebe:input source="=&#34;https://petstore.swagger.io/v2/pet/findByStatus&#34;" target="url" />
+          <zeebe:input source="get" target="method" />
+          <zeebe:input source="={&#10;	&#34;status&#34;: objects.findPetsByStatus_status&#10;}" target="queryParameters" />
+          <zeebe:input source="dead" target="objects.findPetsByStatus_status" />
         </zeebe:ioMapping>
         <zeebe:taskHeaders>
-          <zeebe:header key="operation" value="addPet" />
-          <zeebe:header key="resultVariable" />
+          <zeebe:header key="operation" value="findPetsByStatus" />
+          <zeebe:header key="resultVariable" value="result" />
         </zeebe:taskHeaders>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0pgwnq4</bpmn:incoming>
