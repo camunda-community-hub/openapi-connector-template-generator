@@ -7,24 +7,24 @@ if [ -z $1 ]; then
      cd -
 fi
 
-rm -rf .camunda/element-templates
+rm -rf .camunda
 
 [[ $os = "unix" ]] && separator=":" || separator=";"
 
 java -DdebugModels -cp generators/connectors-codegen/target/connectors-codegen-openapi-generator-1.0.0.jar${separator}openapi-generator-cli.jar \
-     org.openapitools.codegen.OpenAPIGenerator generate -g connectors-codegen -i in.yaml -o .camunda/element-templates \
-     -t generators/connectors-codegen/src/main/resources/connectors-codegen
+     org.openapitools.codegen.OpenAPIGenerator generate -g connectors-codegen -i in.yaml -o .camunda \
+     -t generators/connectors-codegen/src/main/resources/templates
 
-for FILE in .camunda/element-templates/src/*.feel; do
+for FILE in .camunda/includes/*.feel; do
      FILENAME="${FILE##*/}"
      REPLACE=\<${FILENAME%.*}\>
      CONTENTS=`cat $FILE`
 
      for APIFILE in .camunda/element-templates/*.json; do
           if [ $os = "unix" ]; then
-            sed -i '' "s@$REPLACE@$CONTENTS@g" "$APIFILE"
+            sed -i '' "s@$REPLACE@$CONTENTS@g" $APIFILE
           else
-            sed -i "s@$REPLACE@$CONTENTS@g" "$APIFILE"
+            sed -i "s@$REPLACE@$CONTENTS@g" $APIFILE
           fi
      done
 done
