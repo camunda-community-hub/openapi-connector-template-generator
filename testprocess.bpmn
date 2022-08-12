@@ -21,15 +21,16 @@
         <zeebe:taskDefinition type="io.camunda:http-json:1" />
         <zeebe:ioMapping>
           <zeebe:input source="placeholder" target="objects" />
-          <zeebe:input source="={&#10;	&#34;status&#34;: objects.findPetsByStatus_status&#10;}" target="test" />
-          <zeebe:input source="=&#34;https://petstore.swagger.io/v2/pet/findByStatus&#34;" target="url" />
-          <zeebe:input source="get" target="method" />
-          <zeebe:input source="={&#10;	&#34;status&#34;: objects.findPetsByStatus_status&#10;}" target="queryParameters" />
-          <zeebe:input source="dead" target="objects.findPetsByStatus_status" />
+          <zeebe:input source="post" target="method" />
+          <zeebe:input source="={&#10;}" target="queryParameters" />
+          <zeebe:input source="=&#34;https://petstore.swagger.io/v2/pet&#34;" target="url" />
+          <zeebe:input source="= objects.pet" target="body" />
+          <zeebe:input source="={&#10;	&#34;id&#34;: 13456, //long [optional]&#10;	&#34;name&#34;: &#34;test&#34;, //string&#10;	&#34;status&#34;: &#34;test&#34; //string [optional]&#10;}" target="objects.pet" />
         </zeebe:ioMapping>
         <zeebe:taskHeaders>
-          <zeebe:header key="operation" value="findPetsByStatus" />
-          <zeebe:header key="resultVariable" value="result" />
+          <zeebe:header key="operation" value="addPet" />
+          <zeebe:header key="resultVariable" value="response" />
+          <zeebe:header key="resultExpression" value="= {&#10;	&#34;id&#34;: response.body.id,&#10;	&#34;name&#34;: response.body.name,&#10;	&#34;status&#34;: response.body.status&#10;}" />
         </zeebe:taskHeaders>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0pgwnq4</bpmn:incoming>
@@ -60,7 +61,7 @@
         <dc:Bounds x="420" y="77" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_05j2xhe_di" bpmnElement="Activity_0tut4l4">
+      <bpmndi:BPMNShape id="Activity_0t6eqhs_di" bpmnElement="Activity_0tut4l4">
         <dc:Bounds x="270" y="77" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>

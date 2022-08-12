@@ -25,6 +25,7 @@ public class ConnectorsCodegenGenerator extends DefaultCodegen implements Codege
     outputFolder = "generated";
 
     modelTemplateFiles.put("model.mustache", ".feel");
+    modelTemplateFiles.put("response.mustache", ".response");
     apiTemplateFiles.put("api.mustache", ".json");
   }
 

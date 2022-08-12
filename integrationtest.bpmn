@@ -21,26 +21,6 @@
       <bpmn:incoming>Flow_0o8hrfi</bpmn:incoming>
       <bpmn:outgoing>Flow_12h67jt</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_0tut4l4" name="Add pet" zeebe:modelerTemplate="com.camunda.generated.PetApi" zeebe:modelerTemplateVersion="1">
-      <bpmn:extensionElements>
-        <zeebe:taskDefinition type="io.camunda:http-json:1" />
-        <zeebe:ioMapping>
-          <zeebe:input source="placeholder" target="objects" />
-          <zeebe:input source="post" target="method" />
-          <zeebe:input source="={&#10;}" target="queryParameters" />
-          <zeebe:input source="=&#34;https://petstore.swagger.io/v2/pet&#34;" target="url" />
-          <zeebe:input source="= objects.addPet_pet" target="body" />
-          <zeebe:input source="={&#10;	&#34;id&#34;: petId, //long [optional]&#10;	&#34;category&#34;: null, //Category [optional]&#10;	&#34;name&#34;: &#34;My little pet&#34;, //string&#10;	&#34;photoUrls&#34;: null, //array&#10;	&#34;tags&#34;: null, //array [optional]&#10;	&#34;status&#34;: petStatus //string [optional]&#10;}" target="objects.addPet_pet" />
-        </zeebe:ioMapping>
-        <zeebe:taskHeaders>
-          <zeebe:header key="operation" value="addPet" />
-          <zeebe:header key="resultExpression" />
-          <zeebe:header key="resultVariable" value="responseAddPet" />
-        </zeebe:taskHeaders>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0pgwnq4</bpmn:incoming>
-      <bpmn:outgoing>Flow_193k2bj</bpmn:outgoing>
-    </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_193k2bj" sourceRef="Activity_0tut4l4" targetRef="Gateway_1ps8ncz" />
     <bpmn:parallelGateway id="Gateway_1ps8ncz">
       <bpmn:incoming>Flow_193k2bj</bpmn:incoming>
@@ -55,44 +35,44 @@
       <bpmn:outgoing>Flow_1nqy079</bpmn:outgoing>
     </bpmn:parallelGateway>
     <bpmn:sequenceFlow id="Flow_1nqy079" sourceRef="Gateway_1h4yxbl" targetRef="Activity_1iiep2e" />
-    <bpmn:serviceTask id="Activity_1iiep2e" name="Update pet" zeebe:modelerTemplate="com.camunda.generated.PetApi" zeebe:modelerTemplateVersion="1">
-      <bpmn:extensionElements>
-        <zeebe:taskDefinition type="io.camunda:http-json:1" />
-        <zeebe:ioMapping>
-          <zeebe:input source="placeholder" target="objects" />
-          <zeebe:input source="put" target="method" />
-          <zeebe:input source="={&#10;}" target="queryParameters" />
-          <zeebe:input source="=&#34;https://petstore.swagger.io/v2/pet&#34;" target="url" />
-          <zeebe:input source="= objects.updatePet_pet" target="body" />
-          <zeebe:input source="={&#10;	&#34;status&#34;: &#34;adopted&#34; //string [optional]&#10;}" target="objects.updatePet_pet" />
-        </zeebe:ioMapping>
-        <zeebe:taskHeaders>
-          <zeebe:header key="operation" value="updatePet" />
-          <zeebe:header key="resultExpression" />
-          <zeebe:header key="resultVariable" value="responseUpdatePet" />
-        </zeebe:taskHeaders>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_1nqy079</bpmn:incoming>
-      <bpmn:outgoing>Flow_0xx3lgn</bpmn:outgoing>
-    </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_0xx3lgn" sourceRef="Activity_1iiep2e" targetRef="Activity_140btxq" />
     <bpmn:sequenceFlow id="Flow_0o8hrfi" sourceRef="Activity_140btxq" targetRef="Activity_1uta1xv" />
     <bpmn:sequenceFlow id="Flow_1hrjv5v" sourceRef="Gateway_1ps8ncz" targetRef="Activity_15f7e2z" />
     <bpmn:sequenceFlow id="Flow_07nt0en" sourceRef="Activity_15f7e2z" targetRef="Gateway_1h4yxbl" />
+    <bpmn:serviceTask id="Activity_0tut4l4" name="Add pet" zeebe:modelerTemplate="com.camunda.generated.PetApi" zeebe:modelerTemplateVersion="1">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="io.camunda:http-json:1" />
+        <zeebe:ioMapping>
+          <zeebe:input source="placeholder" target="objects" />
+          <zeebe:input source="post" target="method" />
+          <zeebe:input source="={&#10;}" target="queryParameters" />
+          <zeebe:input source="=&#34;https://petstore.swagger.io/v2/pet&#34;" target="url" />
+          <zeebe:input source="= objects.pet" target="body" />
+          <zeebe:input source="={&#10;	&#34;id&#34;: petId, //long [optional]&#10;	&#34;category&#34;: null, //Category [optional]&#10;	&#34;name&#34;: &#34;woef&#34;, //string&#10;	&#34;photoUrls&#34;: null, //array&#10;	&#34;tags&#34;: null, //array [optional]&#10;	&#34;status&#34;: petStatus //string [optional]&#10;}" target="objects.pet" />
+        </zeebe:ioMapping>
+        <zeebe:taskHeaders>
+          <zeebe:header key="operation" value="addPet" />
+          <zeebe:header key="resultVariable" value="response" />
+          <zeebe:header key="resultExpression" value="={&#10;	&#34;pet_id&#34;: response.body.id,&#10;	&#34;pet_name&#34;: response.body.name,&#10;	&#34;pet_photoUrls&#34;: response.body.photoUrls,&#10;	&#34;pet_tags&#34;: response.body.tags,&#10;	&#34;pet_status&#34;: response.body.status&#10;}" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0pgwnq4</bpmn:incoming>
+      <bpmn:outgoing>Flow_193k2bj</bpmn:outgoing>
+    </bpmn:serviceTask>
     <bpmn:serviceTask id="Activity_15f7e2z" name="Find pet by status" zeebe:modelerTemplate="com.camunda.generated.PetApi" zeebe:modelerTemplateVersion="1">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="io.camunda:http-json:1" />
         <zeebe:ioMapping>
           <zeebe:input source="placeholder" target="objects" />
-          <zeebe:input source="get" target="method" />
-          <zeebe:input source="={&#10;	&#34;status&#34;: objects.findPetsByStatus_status&#10;}" target="queryParameters" />
-          <zeebe:input source="=&#34;https://petstore.swagger.io/v2/pet/findByStatus&#34;" target="url" />
-          <zeebe:input source="=petStatus" target="objects.findPetsByStatus_status" />
+          <zeebe:input source="post" target="method" />
+          <zeebe:input source="={&#10;}" target="queryParameters" />
+          <zeebe:input source="=&#34;https://petstore.swagger.io/v2/pet&#34;" target="url" />
+          <zeebe:input source="=petStatus" target="objects.status" />
         </zeebe:ioMapping>
         <zeebe:taskHeaders>
+          <zeebe:header key="resultVariable" value="response" />
+          <zeebe:header key="resultExpression" value="={&#10;	&#34;pet_id&#34;: response.body.id,&#10;	&#34;pet_category&#34;: response.body.category,&#10;	&#34;pet_name&#34;: response.body.name,&#10;	&#34;pet_photoUrls&#34;: response.body.photoUrls,&#10;	&#34;pet_tags&#34;: response.body.tags,&#10;	&#34;pet_status&#34;: response.body.status&#10;}" />
           <zeebe:header key="operation" value="findPetsByStatus" />
-          <zeebe:header key="resultExpression" />
-          <zeebe:header key="resultVariable" value="responseFindByStatus" />
         </zeebe:taskHeaders>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1hrjv5v</bpmn:incoming>
@@ -103,35 +83,55 @@
         <zeebe:taskDefinition type="io.camunda:http-json:1" />
         <zeebe:ioMapping>
           <zeebe:input source="placeholder" target="objects" />
-          <zeebe:input source="get" target="method" />
+          <zeebe:input source="post" target="method" />
           <zeebe:input source="={&#10;}" target="queryParameters" />
-          <zeebe:input source="=&#34;https://petstore.swagger.io/v2/pet/&#34; + string(objects.getPetById_petId) + &#34;/&#34;" target="url" />
-          <zeebe:input source="=petId" target="objects.getPetById_petId" />
+          <zeebe:input source="=&#34;https://petstore.swagger.io/v2/pet&#34;" target="url" />
+          <zeebe:input source="=petId" target="objects.petId" />
         </zeebe:ioMapping>
         <zeebe:taskHeaders>
-          <zeebe:header key="operation" value="getPetById" />
           <zeebe:header key="resultVariable" value="response" />
-          <zeebe:header key="resultExpression" />
+          <zeebe:header key="resultExpression" value="={&#10;	&#34;pet_id&#34;: response.body.id,&#10;	&#34;pet_category&#34;: response.body.category,&#10;	&#34;pet_name&#34;: response.body.name,&#10;	&#34;pet_photoUrls&#34;: response.body.photoUrls,&#10;	&#34;pet_tags&#34;: response.body.tags,&#10;	&#34;pet_status&#34;: response.body.status&#10;}" />
+          <zeebe:header key="operation" value="getPetById" />
         </zeebe:taskHeaders>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_10ona7m</bpmn:incoming>
       <bpmn:outgoing>Flow_080eabv</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1iiep2e" name="Update pet" zeebe:modelerTemplate="com.camunda.generated.PetApi" zeebe:modelerTemplateVersion="1">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="io.camunda:http-json:1" />
+        <zeebe:ioMapping>
+          <zeebe:input source="placeholder" target="objects" />
+          <zeebe:input source="put" target="method" />
+          <zeebe:input source="={&#10;}" target="queryParameters" />
+          <zeebe:input source="=&#34;https://petstore.swagger.io/v2/pet&#34;" target="url" />
+          <zeebe:input source="= objects.pet" target="body" />
+          <zeebe:input source="={&#10;	&#34;id&#34;: petId, //long [optional]&#10;	&#34;status&#34;: &#34;unavailable&#34; //string [optional]&#10;}" target="objects.pet" />
+        </zeebe:ioMapping>
+        <zeebe:taskHeaders>
+          <zeebe:header key="operation" value="updatePet" />
+          <zeebe:header key="resultVariable" value="response" />
+          <zeebe:header key="resultExpression" value="={&#10;	&#34;pet_id&#34;: response.body.id,&#10;	&#34;pet_category&#34;: response.body.category,&#10;	&#34;pet_name&#34;: response.body.name,&#10;	&#34;pet_photoUrls&#34;: response.body.photoUrls,&#10;	&#34;pet_tags&#34;: response.body.tags,&#10;	&#34;pet_status&#34;: response.body.status&#10;}" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1nqy079</bpmn:incoming>
+      <bpmn:outgoing>Flow_0xx3lgn</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:serviceTask id="Activity_140btxq" name="Delete pet" zeebe:modelerTemplate="com.camunda.generated.PetApi" zeebe:modelerTemplateVersion="1">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="io.camunda:http-json:1" />
         <zeebe:ioMapping>
           <zeebe:input source="placeholder" target="objects" />
-          <zeebe:input source="delete" target="method" />
+          <zeebe:input source="post" target="method" />
           <zeebe:input source="={&#10;}" target="queryParameters" />
-          <zeebe:input source="=&#34;https://petstore.swagger.io/v2/pet/&#34; + string(objects.deletePet_petId) + &#34;/&#34;" target="url" />
-          <zeebe:input source="=petId" target="objects.deletePet_petId" />
-          <zeebe:input source="12345" target="objects.deletePet_apiKey" />
+          <zeebe:input source="=&#34;https://petstore.swagger.io/v2/pet&#34;" target="url" />
+          <zeebe:input source="=petId" target="objects.petId" />
+          <zeebe:input source="12345" target="objects.apiKey" />
         </zeebe:ioMapping>
         <zeebe:taskHeaders>
-          <zeebe:header key="operation" value="deletePet" />
           <zeebe:header key="resultVariable" value="response" />
-          <zeebe:header key="resultExpression" />
+          <zeebe:header key="resultExpression" value="={&#10;	&#34;pet_id&#34;: response.body.id,&#10;	&#34;pet_category&#34;: response.body.category,&#10;	&#34;pet_name&#34;: response.body.name,&#10;	&#34;pet_photoUrls&#34;: response.body.photoUrls,&#10;	&#34;pet_tags&#34;: response.body.tags,&#10;	&#34;pet_status&#34;: response.body.status&#10;}" />
+          <zeebe:header key="operation" value="deletePet" />
         </zeebe:taskHeaders>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0xx3lgn</bpmn:incoming>
@@ -192,27 +192,25 @@
         <dc:Bounds x="1230" y="77" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0qzt2mb_di" bpmnElement="Activity_0tut4l4">
-        <dc:Bounds x="280" y="77" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0s7wmjk_di" bpmnElement="Gateway_1ps8ncz">
         <dc:Bounds x="445" y="92" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_1cpv9hm_di" bpmnElement="Gateway_1h4yxbl">
         <dc:Bounds x="725" y="92" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0c0o1oz_di" bpmnElement="Activity_1iiep2e">
-        <dc:Bounds x="840" y="77" width="100" height="80" />
+      <bpmndi:BPMNShape id="Activity_0xkp2y6_di" bpmnElement="Activity_0tut4l4">
+        <dc:Bounds x="280" y="77" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0jt0ymt_di" bpmnElement="Activity_15f7e2z">
+      <bpmndi:BPMNShape id="Activity_00oiapr_di" bpmnElement="Activity_15f7e2z">
         <dc:Bounds x="560" y="77" width="100" height="80" />
-        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1j4ot5p_di" bpmnElement="Activity_1nyjjs6">
+      <bpmndi:BPMNShape id="Activity_1n9l0r5_di" bpmnElement="Activity_1nyjjs6">
         <dc:Bounds x="560" y="190" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1jps9vr_di" bpmnElement="Activity_140btxq">
+      <bpmndi:BPMNShape id="Activity_0dgupxy_di" bpmnElement="Activity_1iiep2e">
+        <dc:Bounds x="840" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1gxkhkc_di" bpmnElement="Activity_140btxq">
         <dc:Bounds x="1010" y="77" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
