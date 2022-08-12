@@ -1,5 +1,5 @@
 # Set OS to "windows" or "unix" for the proper classpath separator
-os="windows"
+os="unix"
 
 if [ $# -ge 1 ]; then
      cd generators/connectors-codegen
@@ -46,5 +46,3 @@ if [ $# -eq 2 ]; then
         mv $APIFILE ${BASEPATH}/${2}_${FILENAME}
     done
 fi
-
-read -p "Quit"
