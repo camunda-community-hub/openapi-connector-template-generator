@@ -125,7 +125,6 @@
           <zeebe:input source="delete" target="method" />
           <zeebe:input source="={&#10;}" target="queryParameters" />
           <zeebe:input source="=&#34;https://petstore.swagger.io/v2/pet/&#34; + string(objects.deletePet_petId) + &#34;/&#34;" target="url" />
-          <zeebe:input source="=" target="body" />
           <zeebe:input source="=petId" target="objects.deletePet_petId" />
           <zeebe:input source="12345" target="objects.deletePet_apiKey" />
         </zeebe:ioMapping>
@@ -213,7 +212,7 @@
       <bpmndi:BPMNShape id="Activity_1j4ot5p_di" bpmnElement="Activity_1nyjjs6">
         <dc:Bounds x="560" y="190" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0vxqdu6_di" bpmnElement="Activity_140btxq">
+      <bpmndi:BPMNShape id="Activity_1jps9vr_di" bpmnElement="Activity_140btxq">
         <dc:Bounds x="1010" y="77" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
