@@ -250,7 +250,7 @@
                     "property": "operation",
                     "equals": "{{operationId}}"
                 }
-            }{{^isGET}},
+            }{{^isGETorDELETE}},
             {
                 "label": "Request Body",
                 "description": "JSON payload to send with the request",
@@ -267,7 +267,7 @@
                     "equals": "{{operationId}}"
                 },
                 "optional": true
-            }{{/isGET}}{{^-last}},{{/-last}}
+            }{{/isGETorDELETE}}{{^-last}},{{/-last}}
                 {{/operation}}
             {{/operations}}
         ]

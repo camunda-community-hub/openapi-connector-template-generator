@@ -3,7 +3,7 @@ package io.camunda.connectors.codegen;
 import org.openapitools.codegen.CodegenOperation;
 
 public class ElementTemplateCodegenOperation extends CodegenOperation {
-  protected boolean isGET;
+  protected boolean isGETorDELETE;
 
   public ElementTemplateCodegenOperation(CodegenOperation o) {
     super();
@@ -60,6 +60,6 @@ public class ElementTemplateCodegenOperation extends CodegenOperation {
     this.operationIdLowerCase = o.operationIdLowerCase;
     this.operationIdCamelCase = o.operationIdCamelCase;
 
-    this.isGET = o.httpMethod.equals("GET");
+    this.isGETorDELETE = o.httpMethod.equals("GET") || o.httpMethod.equals("DELETE");
   }
 }
