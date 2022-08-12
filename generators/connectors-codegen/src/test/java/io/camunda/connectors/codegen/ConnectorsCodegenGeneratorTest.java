@@ -11,7 +11,7 @@ public class ConnectorsCodegenGeneratorTest {
   public void launchCodeGenerator() {
     final CodegenConfigurator configurator = new CodegenConfigurator()
               .setGeneratorName("connectors-codegen")
-              .setInputSpec("https://raw.githubusercontent.com/openapitools/openapi-generator/master/modules/openapi-generator/src/test/resources/2_0/petstore.yaml") // or from the server
+              .setInputSpec("https://raw.githubusercontent.com/openapitools/openapi-generator/master/modules/openapi-generator/src/test/resources/2_0/petstore.yaml")
               .setOutputDir("out/connectors-codegen");
 
     final ClientOptInput clientOptInput = configurator.toClientOptInput();
