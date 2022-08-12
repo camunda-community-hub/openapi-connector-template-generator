@@ -65,6 +65,7 @@ public class ConnectorsCodegenGenerator extends DefaultCodegen implements Codege
 
     for(CodegenOperation operation : codegenOperations){
       setPathParamsInPath(operation);
+      unescapeAllParams(operation);
 
       ElementTemplateCodegenOperation modifiedOperation = new ElementTemplateCodegenOperation(operation);
       modifiedOperations.add(modifiedOperation);
@@ -73,6 +74,15 @@ public class ConnectorsCodegenGenerator extends DefaultCodegen implements Codege
     operationsWithMetaInfos.setOperation(modifiedOperations);
 
     return operationsWithImports;
+  }
+
+  private void unescapeAllParams(CodegenOperation operation) {
+      operation.allParams.stream()
+          .forEach(param -> {
+            if (param.description != null) {
+              param.description = param.description.replace("\\\"", "\"");
+            }
+          });
   }
 
   private void setPathParamsInPath(CodegenOperation operation) {
