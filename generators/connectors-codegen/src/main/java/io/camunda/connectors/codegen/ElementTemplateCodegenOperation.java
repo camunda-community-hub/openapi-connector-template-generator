@@ -1,10 +1,12 @@
 package io.camunda.connectors.codegen;
 
+import org.apache.commons.text.CaseUtils;
 import org.openapitools.codegen.CodegenOperation;
 
 public class ElementTemplateCodegenOperation extends CodegenOperation {
   protected boolean isGETorDELETE;
   protected String sanitizedOperationId;
+  protected String camelCaseReturnType;
 
   public ElementTemplateCodegenOperation(CodegenOperation o) {
     super();
@@ -62,6 +64,7 @@ public class ElementTemplateCodegenOperation extends CodegenOperation {
     this.operationIdCamelCase = o.operationIdCamelCase;
 
     this.isGETorDELETE = o.httpMethod.equals("GET") || o.httpMethod.equals("DELETE");
-    this.sanitizedOperationId = o.operationIdCamelCase;
+    this.sanitizedOperationId = o.operationId.replace("/", "_");
+    this.camelCaseReturnType = CaseUtils.toCamelCase(o.returnBaseType, true, '-');
   }
 }

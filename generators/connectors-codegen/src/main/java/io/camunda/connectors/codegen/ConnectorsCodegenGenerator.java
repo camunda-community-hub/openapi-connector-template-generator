@@ -28,6 +28,7 @@ public class ConnectorsCodegenGenerator extends DefaultCodegen implements Codege
     outputFolder = "generated";   
 
     modelTemplateFiles.put("model.mustache", ".feel");
+    modelTemplateFiles.put("response_model.mustache", "-response.feel");
     apiTemplateFiles.put("api.mustache", ".json");
   }
 
@@ -84,11 +85,11 @@ public class ConnectorsCodegenGenerator extends DefaultCodegen implements Codege
     List<ElementTemplateCodegenOperation> modifiedOperations = new ArrayList<>();
     List<CodegenOperation> codegenOperations = operationsWithMetaInfos.getOperation();
 
-    for(CodegenOperation operation : codegenOperations){
-      setPathParamsInPath(operation);
-      unescapeAllParams(operation);
-
+    for(CodegenOperation operation : codegenOperations) {
       ElementTemplateCodegenOperation modifiedOperation = new ElementTemplateCodegenOperation(operation);
+      setPathParamsInPath(modifiedOperation);
+      unescapeAllParams(modifiedOperation);
+      
       modifiedOperations.add(modifiedOperation);
     }
 
@@ -97,7 +98,7 @@ public class ConnectorsCodegenGenerator extends DefaultCodegen implements Codege
     return operationsWithImports;
   }
 
-  private void unescapeAllParams(CodegenOperation operation) {
+  private void unescapeAllParams(ElementTemplateCodegenOperation operation) {
       operation.allParams.stream()
           .forEach(param -> {
             if (param.description != null) {
@@ -106,11 +107,11 @@ public class ConnectorsCodegenGenerator extends DefaultCodegen implements Codege
           });
   }
 
-  private void setPathParamsInPath(CodegenOperation operation) {
+  private void setPathParamsInPath(ElementTemplateCodegenOperation operation) {
     operation.pathParams.stream()
             .map(param -> new AbstractMap.SimpleEntry<>("{" + param.paramName + "}", param))
             .forEach(entry -> operation.path = operation.path.replace(entry.getKey(),
-                    String.format("\\\" + string(objects.%s_%s) + \\\"", operation.operationIdCamelCase, entry.getValue().paramName)));
+                    String.format("\\\" + string(objects.%s_%s) + \\\"", operation.sanitizedOperationId, entry.getValue().paramName)));
   }
 
   /**

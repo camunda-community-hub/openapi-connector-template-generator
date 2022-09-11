@@ -2,7 +2,7 @@
         "label": "Result Variable",
         "description": "Name of variable to store the response in",
         "group": "responseMapping",
-        "value": "response",
+        "value": "response_{{sanitizedOperationId}}",
         "type": "String",
         "binding": {
             "type": "zeebe:taskHeader",
@@ -19,6 +19,7 @@
         "group": "responseMapping",
         "type": "Text",
         "feel": "required",
+        "value": "{{#camelCaseReturnType}}=<{{.}}-response>{{/camelCaseReturnType}}",
         "binding": {
             "type": "zeebe:taskHeader",
             "key": "resultExpression"
