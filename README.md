@@ -15,7 +15,7 @@ The OpenAPI standard defines a language-agnostic interface to REST APIs. Many AP
 Run it as follows:
 
 ```sh
-sh ./generate.sh schema.yaml -o targetDir
+sh ./generate.sh -i schema.yaml -o targetDir
 ```
 
 where `schema.yaml` is your OpenAPI schema, and `targetDir` is your targeted output directory for the Connector templates. Both JSON and YAML schemas are supported.
