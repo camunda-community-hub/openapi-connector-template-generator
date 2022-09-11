@@ -33,7 +33,7 @@
     {{#operations}}
         {{#operation}}
         {
-            "id": "{{operationId}}",
+            "id": "{{sanitizedOperationId}}",
             "label": "Parameters"
         }{{^-last}},{{/-last}}
         {{/operation}}
@@ -65,12 +65,12 @@
             "description": "Specify the operation to call.",
             "type": "Dropdown",
             "group": "operation",
-            "value": "{{#operations}}{{#operation}}{{#-first}}{{operationId}}{{/-first}}{{/operation}}{{/operations}}",
+            "value": "{{#operations}}{{#operation}}{{#-first}}{{sanitizedOperationId}}{{/-first}}{{/operation}}{{/operations}}",
             "choices": [
                 { "name": "Reset choice", "value": "-" },
                 {{#operations}}
                     {{#operation}}
-                    { "name": "{{operationId}} - {{summary}}", "value": "{{operationId}}" }{{^-last}},{{/-last}}
+                    { "name": "{{operationId}} - {{summary}}", "value": "{{sanitizedOperationId}}" }{{^-last}},{{/-last}}
                     {{/operation}}
                 {{/operations}}
             ],
@@ -103,15 +103,15 @@
             "feel": "{{#isBodyParam}}required{{/isBodyParam}}{{^isBodyParam}}optional{{/isBodyParam}}",
                 {{/isBoolean}}                
             {{/isEnum}}                
-            "group": "{{operationId}}",
+            "group": "{{sanitizedOperationId}}",
             "value": "{{#isBodyParam}}=<{{baseName}}>{{/isBodyParam}}{{^isBodyParam}}{{#defaultValue}}{{.}}{{/defaultValue}}{{/isBodyParam}}",
             "binding": {
                 "type": "zeebe:input",
-                "name": "objects.{{operationId}}_{{paramName}}"
+                "name": "objects.{{sanitizedOperationId}}_{{paramName}}"
             },
             "condition": {
                 "property": "operation",
-                "equals": "{{operationId}}"
+                "equals": "{{sanitizedOperationId}}"
             },
             "constraints": {
                 "notEmpty": true

@@ -110,7 +110,7 @@ public class ConnectorsCodegenGenerator extends DefaultCodegen implements Codege
     operation.pathParams.stream()
             .map(param -> new AbstractMap.SimpleEntry<>("{" + param.paramName + "}", param))
             .forEach(entry -> operation.path = operation.path.replace(entry.getKey(),
-                    String.format("\\\" + string(objects.%s_%s) + \\\"/", operation.operationId, entry.getValue().paramName)));
+                    String.format("\\\" + string(objects.%s_%s) + \\\"", operation.operationIdCamelCase, entry.getValue().paramName)));
   }
 
   /**

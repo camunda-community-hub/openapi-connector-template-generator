@@ -4,6 +4,7 @@ import org.openapitools.codegen.CodegenOperation;
 
 public class ElementTemplateCodegenOperation extends CodegenOperation {
   protected boolean isGETorDELETE;
+  protected String sanitizedOperationId;
 
   public ElementTemplateCodegenOperation(CodegenOperation o) {
     super();
@@ -61,5 +62,6 @@ public class ElementTemplateCodegenOperation extends CodegenOperation {
     this.operationIdCamelCase = o.operationIdCamelCase;
 
     this.isGETorDELETE = o.httpMethod.equals("GET") || o.httpMethod.equals("DELETE");
+    this.sanitizedOperationId = o.operationIdCamelCase;
   }
 }

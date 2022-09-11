@@ -10,7 +10,7 @@
         },
         "condition": {
             "property": "operation",
-            "equals": "{{operationId}}"
+            "equals": "{{sanitizedOperationId}}"
         }
     },
     {
@@ -25,7 +25,7 @@
         },
         "condition": {
             "property": "operation",
-            "equals": "{{operationId}}"
+            "equals": "{{sanitizedOperationId}}"
         }
     },
     {
@@ -40,7 +40,7 @@
         },
         "condition": {
             "property": "operation",
-            "equals": "{{operationId}}"
+            "equals": "{{sanitizedOperationId}}"
         }
     },              {{/isBasicBasic}}
                     {{#isBasicBearer}}
@@ -53,7 +53,7 @@
         },
         "condition": {
             "property": "operation",
-            "equals": "{{operationId}}"
+            "equals": "{{sanitizedOperationId}}"
         }
     },
     {
@@ -68,7 +68,7 @@
         },
         "condition": {
             "property": "operation",
-            "equals": "{{operationId}}"
+            "equals": "{{sanitizedOperationId}}"
         }
     },
         {{/isBasicBearer}}

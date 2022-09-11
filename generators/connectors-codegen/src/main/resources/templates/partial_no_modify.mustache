@@ -5,7 +5,7 @@
         "value": "{{#lambda.lowercase}}{{httpMethod}}{{/lambda.lowercase}}",
         "condition": {
             "property": "operation",
-            "equals": "{{operationId}}"
+            "equals": "{{sanitizedOperationId}}"
         },
         "choices": [
             { "name": "GET", "value": "get" },
@@ -31,7 +31,7 @@
         },
         "condition": {
             "property": "operation",
-            "equals": "{{operationId}}"
+            "equals": "{{sanitizedOperationId}}"
         }
     },
     {
@@ -40,14 +40,14 @@
         "group": "modificationWarning",
         "type": "String",
         "feel": "required",
-        "value": "={\n{{#queryParams}}\t\"{{paramName}}\": objects.{{operationId}}_{{paramName}}{{^-last}},{{/-last}}\n{{/queryParams}}}",
+        "value": "={\n{{#queryParams}}\t\"{{paramName}}\": objects.{{sanitizedOperationId}}_{{paramName}}{{^-last}},{{/-last}}\n{{/queryParams}}}",
         "binding": {
             "type": "zeebe:input",
             "name": "queryParameters"
         },
         "condition": {
             "property": "operation",
-            "equals": "{{operationId}}"
+            "equals": "{{sanitizedOperationId}}"
         },
         "optional": true
     }{{^isGETorDELETE}},
@@ -57,14 +57,14 @@
         "group": "modificationWarning",
         "type": "String",
         "feel": "required",
-        "value": "={{#bodyParams}} objects.{{operationId}}_{{paramName}}{{/bodyParams}}",
+        "value": "={{#bodyParams}} objects.{{sanitizedOperationId}}_{{paramName}}{{/bodyParams}}",
         "binding": {
             "type": "zeebe:input",
             "name": "body"
         },
         "condition": {
             "property": "operation",
-            "equals": "{{operationId}}"
+            "equals": "{{sanitizedOperationId}}"
         },
         "optional": true
     }{{/isGETorDELETE}}
