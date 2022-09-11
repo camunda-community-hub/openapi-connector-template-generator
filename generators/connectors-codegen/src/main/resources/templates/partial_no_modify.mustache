@@ -1,0 +1,70 @@
+    {
+        "label": "Method",
+        "group": "modificationWarning",
+        "type": "Dropdown",
+        "value": "{{#lambda.lowercase}}{{httpMethod}}{{/lambda.lowercase}}",
+        "condition": {
+            "property": "operation",
+            "equals": "{{operationId}}"
+        },
+        "choices": [
+            { "name": "GET", "value": "get" },
+            { "name": "POST", "value": "post" },
+            { "name": "PATCH", "value": "patch" },
+            { "name": "PUT", "value": "put" },
+            { "name": "DELETE", "value": "delete" }
+        ],
+        "binding": {
+            "type": "zeebe:input",
+            "name": "method"
+        }
+    },
+    {
+        "label": "URL",
+        "group": "modificationWarning",
+        "type": "String",
+        "feel": "optional",
+        "value": "=\"{{basePath}}{{{path}}}\"",
+        "binding": {
+            "type": "zeebe:input",
+            "name": "url"
+        },
+        "condition": {
+            "property": "operation",
+            "equals": "{{operationId}}"
+        }
+    },
+    {
+        "label": "Query Parameters",
+        "description": "FEEL map containing the query parameters",
+        "group": "modificationWarning",
+        "type": "String",
+        "feel": "required",
+        "value": "={\n{{#queryParams}}\t\"{{paramName}}\": objects.{{operationId}}_{{paramName}}{{^-last}},{{/-last}}\n{{/queryParams}}}",
+        "binding": {
+            "type": "zeebe:input",
+            "name": "queryParameters"
+        },
+        "condition": {
+            "property": "operation",
+            "equals": "{{operationId}}"
+        },
+        "optional": true
+    }{{^isGETorDELETE}},
+    {
+        "label": "Request Body",
+        "description": "JSON payload to send with the request",
+        "group": "modificationWarning",
+        "type": "String",
+        "feel": "required",
+        "value": "={{#bodyParams}} objects.{{operationId}}_{{paramName}}{{/bodyParams}}",
+        "binding": {
+            "type": "zeebe:input",
+            "name": "body"
+        },
+        "condition": {
+            "property": "operation",
+            "equals": "{{operationId}}"
+        },
+        "optional": true
+    }{{/isGETorDELETE}}

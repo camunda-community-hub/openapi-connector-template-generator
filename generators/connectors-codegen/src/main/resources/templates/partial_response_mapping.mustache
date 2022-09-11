@@ -1,0 +1,30 @@
+    {
+        "label": "Result Variable",
+        "description": "Name of variable to store the response in",
+        "group": "responseMapping",
+        "value": "response",
+        "type": "String",
+        "binding": {
+            "type": "zeebe:taskHeader",
+            "key": "resultVariable"
+        },
+        "condition": {
+            "property": "operation",
+            "equals": "{{operationId}}"
+        }
+    },
+    {
+        "label": "Result Expression",
+        "description": "Expression to map the response into process variables",
+        "group": "responseMapping",
+        "type": "Text",
+        "feel": "required",
+        "binding": {
+            "type": "zeebe:taskHeader",
+            "key": "resultExpression"
+        },
+        "condition": {
+            "property": "operation",
+            "equals": "{{operationId}}"
+        }
+    },

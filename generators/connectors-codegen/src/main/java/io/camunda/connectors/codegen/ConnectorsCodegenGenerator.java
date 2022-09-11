@@ -18,15 +18,36 @@ public class ConnectorsCodegenGenerator extends DefaultCodegen implements Codege
   private String apiFolder = "element-templates";
   private String modelFolder = "includes";
 
+  // protected String forcedAuthType = "";
+  // private final String FORCED_AUTH_TYPE = "forcedAuthType";
+
   public ConnectorsCodegenGenerator() {
     super();
 
     templateDir = "templates";
-    outputFolder = "generated";
+    outputFolder = "generated";   
 
     modelTemplateFiles.put("model.mustache", ".feel");
     apiTemplateFiles.put("api.mustache", ".json");
   }
+
+  // addOption(FORCED_AUTH_TYPE, "Override auth type in the specification", forcedAuthType);
+
+  // public void setForcedAuthType(String forcedAuthType) {
+  //   this.forcedAuthType = forcedAuthType;
+  // }
+
+  // @Override
+  // public void processOpts() {
+  //     super.processOpts();
+
+  //     if (additionalProperties.containsKey(FORCED_AUTH_TYPE)) {
+  //       this.setForcedAuthType((String) additionalProperties.get(FORCED_AUTH_TYPE));
+  //     } else {
+  //       //not set, use to be passed to template
+  //       additionalProperties.put(FORCED_AUTH_TYPE, forcedAuthType);        
+  //   }
+  // }
 
   public CodegenType getTag() {
     return CodegenType.OTHER;
@@ -37,7 +58,7 @@ public class ConnectorsCodegenGenerator extends DefaultCodegen implements Codege
   }
 
   public String getHelp() {
-    return "Generates element templates for use with Camunda Platform 8.";
+    return "Generates http/json connector templates for use with Camunda Platform 8.";
   }
 
   @Override

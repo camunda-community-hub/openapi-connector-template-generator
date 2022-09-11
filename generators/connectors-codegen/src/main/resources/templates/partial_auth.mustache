@@ -1,0 +1,76 @@
+{{#hasAuthMethods}}
+    {{#authMethods}}
+        {{#isBasicBasic}}
+    {
+        "type": "Hidden",
+        "value": "basic",
+        "binding": {
+            "type": "zeebe:input",
+            "name": "authentication.type"
+        },
+        "condition": {
+            "property": "operation",
+            "equals": "{{operationId}}"
+        }
+    },
+    {
+        "label": "API Username (Basic Authentication)",
+        "group": "authentication",
+        "type": "String",
+        "feel": "optional",
+        "optional": true,
+        "binding": {
+            "type": "zeebe:input",
+            "name": "authentication.username"
+        },
+        "condition": {
+            "property": "operation",
+            "equals": "{{operationId}}"
+        }
+    },
+    {
+        "label": "API Password (Basic Authentication)",
+        "group": "authentication",
+        "type": "String",
+        "feel": "optional",
+        "optional": true,
+        "binding": {
+            "type": "zeebe:input",
+            "name": "authentication.password"
+        },
+        "condition": {
+            "property": "operation",
+            "equals": "{{operationId}}"
+        }
+    },              {{/isBasicBasic}}
+                    {{#isBasicBearer}}
+    {
+        "type": "Hidden",
+        "value": "bearer",
+        "binding": {
+            "type": "zeebe:input",
+            "name": "authentication.type"
+        },
+        "condition": {
+            "property": "operation",
+            "equals": "{{operationId}}"
+        }
+    },
+    {
+        "label": "API Bearer Token (Bearer Authentication)",
+        "group": "authentication",
+        "type": "String",
+        "feel": "optional",
+        "optional": true,
+        "binding": {
+            "type": "zeebe:input",
+            "name": "authentication.token"
+        },
+        "condition": {
+            "property": "operation",
+            "equals": "{{operationId}}"
+        }
+    },
+        {{/isBasicBearer}}
+    {{/authMethods}}
+{{/hasAuthMethods}}

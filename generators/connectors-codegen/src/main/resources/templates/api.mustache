@@ -1,279 +1,127 @@
-[
-    {
-        "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
-        "name": "<PREFIX>{{classname}}",
-        "id": "com.camunda.generated.{{classname}}",
-        "description": "{{summary}}",
-         "icon": {
-            "faviconBasePath": "{{basePath}}",
-            "contents": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url={{basePath}}&size=32"
+{     
+    "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+    "name": "{{appName}} - {{baseName}}",
+    "id": "com.camunda.generated.{{classname}}",
+    "description": "{{appName}} - {{baseName}}, Schema Version {{version}}. Generated using the OpenAPI generator.",
+        "icon": {
+        "faviconBasePath": "{{basePath}}",
+        "contents": "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url={{basePath}}&size=32"
+    },
+    {{#externalDocs}}
+    "documentationRef": "{{.}}",
+    {{/externalDocs}}
+    "version": 1,
+    "appliesTo": [
+        "bpmn:Task"
+    ],
+    "elementType": {
+        "value": "bpmn:ServiceTask"
+    },
+    "groups": [
+        {
+            "id": "authentication",
+            "label": "Authentication"
         },
-        "version": 1,
-        "appliesTo": [
-            "bpmn:Task"
-        ],
-        "elementType": {
-            "value": "bpmn:ServiceTask"
+        {
+            "id": "operation",
+            "label": "Operation"
         },
-        "groups": [
-            {
-                "id": "authentication",
-                "label": "Authentication"
-            },
-            {
-                "id": "operation",
-                "label": "Operation"
-            },
-        {{#operations}}
-            {{#operation}}
-            {
-                "id": "{{operationId}}",
-                "label": "{{operationId}}"
-            }{{^-last}},{{/-last}}
-            {{/operation}}
-        {{/operations}},
-            {
-                "id": "modificationWarning",
-                "label": "Generated (DO NOT MODIFY)"
+        {
+            "id": "responseMapping",
+            "label": "Response Mapping"
+        },
+    {{#operations}}
+        {{#operation}}
+        {
+            "id": "{{operationId}}",
+            "label": "Parameters"
+        }{{^-last}},{{/-last}}
+        {{/operation}}
+    {{/operations}},
+        {
+            "id": "modificationWarning",
+            "label": "Generated (DO NOT MODIFY)"
+        }
+    ],
+    "properties": [
+        {
+            "type": "Hidden",
+            "value": "io.camunda:http-json:1",
+            "binding": {
+                "type": "zeebe:taskDefinition:type"
             }
-        ],
-        "properties": [
-            {
-                "type": "Hidden",
-                "value": "io.camunda:http-json:1",
-                "binding": {
-                    "type": "zeebe:taskDefinition:type"
-                }
-            },
-            {
-                "type": "Hidden",
-                "value": "placeholder",
-                "binding": {
-                    "type": "zeebe:input",
-                    "name": "objects"
-                }
-            },
-            {
-                "label": "Operation",
-                "id": "operation",
-                "description": "Specify the operation to call.",
-                "type": "Dropdown",
-                "group": "operation",
-                "value": "{{#operations}}{{#operation}}{{#-first}}{{operationId}}{{/-first}}{{/operation}}{{/operations}}",
-                "choices": [
-                    { "name": "Reset choice", "value": "-" },
-                    {{#operations}}
-                        {{#operation}}
-                        { "name": "{{operationId}}", "value": "{{operationId}}" }{{^-last}},{{/-last}}
-                        {{/operation}}
-                    {{/operations}}
-                ],
-                "binding": {
-                    "type": "zeebe:taskHeader",
-                    "key": "operation"
-                }
-            },
+        },
+        {
+            "type": "Hidden",
+            "value": "placeholder",
+            "binding": {
+                "type": "zeebe:input",
+                "name": "objects"
+            }
+        },
+        {
+            "label": "Operation",
+            "id": "operation",
+            "description": "Specify the operation to call.",
+            "type": "Dropdown",
+            "group": "operation",
+            "value": "{{#operations}}{{#operation}}{{#-first}}{{operationId}}{{/-first}}{{/operation}}{{/operations}}",
+            "choices": [
+                { "name": "Reset choice", "value": "-" },
+                {{#operations}}
+                    {{#operation}}
+                    { "name": "{{operationId}} - {{summary}}", "value": "{{operationId}}" }{{^-last}},{{/-last}}
+                    {{/operation}}
+                {{/operations}}
+            ],
+            "binding": {
+                "type": "zeebe:taskHeader",
+                "key": "operation"
+            }
+        },
 
-            {{#operations}}
-                {{#operation}}                    
-             {
-                "label": "Method",
-                "group": "{{operationId}}",
-                "type": "Dropdown",
-                "value": "{{#lambda.lowercase}}{{httpMethod}}{{/lambda.lowercase}}",
-                "condition": {
-                    "property": "operation",
-                    "equals": "{{operationId}}"
-                },
-                "choices": [
-                    { "name": "GET", "value": "get" },
-                    { "name": "POST", "value": "post" },
-                    { "name": "PATCH", "value": "patch" },
-                    { "name": "PUT", "value": "put" },
-                    { "name": "DELETE", "value": "delete" }
-                ],
-                "binding": {
-                    "type": "zeebe:input",
-                    "name": "method"
-                }
+        {{#operations}}
+            {{#operation}}            
+        {{#allParams}}
+        {
+            "label": "{{paramName}}",
+            "description": "{{description}}",
+            {{#isEnum}}
+            "type": "Dropdown",
+            "choices": [
+                {{#allowableValues}}{{#enumVars}}
+                { "name": {{{value}}}, "value": {{{value}}} }{{^-last}},{{/-last}}
+                {{/enumVars}}{{/allowableValues}}                    
+            ],
+            {{/isEnum}}
+            {{^isEnum}}
+                {{#isBoolean}}
+            "type": "Boolean",
+                {{/isBoolean}}
+                {{^isBoolean}}
+            "type": "String",
+            "feel": "{{#isBodyParam}}required{{/isBodyParam}}{{^isBodyParam}}optional{{/isBodyParam}}",
+                {{/isBoolean}}                
+            {{/isEnum}}                
+            "group": "{{operationId}}",
+            "value": "{{#isBodyParam}}=<{{baseName}}>{{/isBodyParam}}{{^isBodyParam}}{{#defaultValue}}{{.}}{{/defaultValue}}{{/isBodyParam}}",
+            "binding": {
+                "type": "zeebe:input",
+                "name": "objects.{{operationId}}_{{paramName}}"
             },
-            {{#allParams}}
-            {
-                "label": "{{paramName}}",
-                "description": "{{description}}",
-                "type": "String",
-                "feel": "{{#isBodyParam}}required{{/isBodyParam}}{{^isBodyParam}}optional{{/isBodyParam}}",
-                "group": "{{operationId}}",
-                "value": "{{#isBodyParam}}=<{{baseName}}>{{/isBodyParam}}{{^isBodyParam}}{{defaultValue}}{{/isBodyParam}}",
-                "binding": {
-                    "type": "zeebe:input",
-                    "name": "objects.{{operationId}}_{{paramName}}"
-                },
-                "condition": {
-                    "property": "operation",
-                    "equals": "{{operationId}}"
-                },
-                "constraints": {
-                    "notEmpty": true
-                }
+            "condition": {
+                "property": "operation",
+                "equals": "{{operationId}}"
             },
-            {{/allParams}}
-            {
-                "label": "Query Parameters",
-                "description": "FEEL map containing the query parameters",
-                "group": "{{operationId}}",
-                "type": "String",
-                "feel": "required",
-                "value": "={\n{{#queryParams}}\t\"{{paramName}}\": objects.{{operationId}}_{{paramName}}{{^-last}},{{/-last}}\n{{/queryParams}}}",
-                "binding": {
-                    "type": "zeebe:input",
-                    "name": "queryParameters"
-                },
-                "condition": {
-                    "property": "operation",
-                    "equals": "{{operationId}}"
-                },
-                "optional": true
-            },
-            {
-                "label": "Result Variable",
-                "description": "Name of variable to store the response in",
-                "group": "{{operationId}}",
-                "value": "response",
-                "type": "String",
-                "binding": {
-                    "type": "zeebe:taskHeader",
-                    "key": "resultVariable"
-                },
-                "condition": {
-                    "property": "operation",
-                    "equals": "{{operationId}}"
-                }
-            },
-            {
-                "label": "Result Expression",
-                "description": "Expression to map the response into process variables",
-                "group": "{{operationId}}",
-                "type": "Text",
-                "feel": "required",
-                "binding": {
-                    "type": "zeebe:taskHeader",
-                    "key": "resultExpression"
-                },
-                "condition": {
-                    "property": "operation",
-                    "equals": "{{operationId}}"
-                }
-            },
-                    {{#hasAuthMethods}}
-                        {{#authMethods}}
-                            {{#isBasicBasic}}{
-                "type": "Hidden",
-                "value": "basic",
-                "binding": {
-                    "type": "zeebe:input",
-                    "name": "authentication.type"
-                },
-                "condition": {
-                    "property": "operation",
-                    "equals": "{{operationId}}"
-                }
-            },
-            {
-                "label": "API Username (Basic Authentication)",
-                "group": "authentication",
-                "type": "String",
-                "feel": "optional",
-                "optional": true,
-                "binding": {
-                    "type": "zeebe:input",
-                    "name": "authentication.username"
-                },
-                "condition": {
-                    "property": "operation",
-                    "equals": "{{operationId}}"
-                }
-            },
-            {
-                "label": "API Password (Basic Authentication)",
-                "group": "authentication",
-                "type": "String",
-                "feel": "optional",
-                "optional": true,
-                "binding": {
-                    "type": "zeebe:input",
-                    "name": "authentication.password"
-                },
-                "condition": {
-                    "property": "operation",
-                    "equals": "{{operationId}}"
-                }
-            },              {{/isBasicBasic}}
-                            {{#isBasicBearer}}
-            {
-                "type": "Hidden",
-                "value": "bearer",
-                "binding": {
-                    "type": "zeebe:input",
-                    "name": "authentication.type"
-                },
-                "condition": {
-                    "property": "operation",
-                    "equals": "{{operationId}}"
-                }
-            },
-            {
-                "label": "API Bearer Token (Bearer Authentication)",
-                "group": "authentication",
-                "type": "String",
-                "feel": "optional",
-                "optional": true,
-                "binding": {
-                    "type": "zeebe:input",
-                    "name": "authentication.token"
-                },
-                "condition": {
-                    "property": "operation",
-                    "equals": "{{operationId}}"
-                }
-            },
-                        {{/isBasicBearer}}
-                    {{/authMethods}}
-                {{/hasAuthMethods}}
-            {
-                "label": "URL",
-                "group": "modificationWarning",
-                "type": "String",
-                "feel": "optional",
-                "value": "=\"{{basePath}}{{{path}}}\"",
-                "binding": {
-                    "type": "zeebe:input",
-                    "name": "url"
-                },
-                "condition": {
-                    "property": "operation",
-                    "equals": "{{operationId}}"
-                }
-            }{{^isGETorDELETE}},
-            {
-                "label": "Request Body",
-                "description": "JSON payload to send with the request",
-                "group": "modificationWarning",
-                "type": "String",
-                "feel": "required",
-                "value": "={{#bodyParams}} objects.{{operationId}}_{{paramName}}{{/bodyParams}}",
-                "binding": {
-                    "type": "zeebe:input",
-                    "name": "body"
-                },
-                "condition": {
-                    "property": "operation",
-                    "equals": "{{operationId}}"
-                },
-                "optional": true
-            }{{/isGETorDELETE}}{{^-last}},{{/-last}}
-                {{/operation}}
-            {{/operations}}
-        ]
-    }
-]
+            "constraints": {
+                "notEmpty": true
+            }
+        },
+        {{/allParams}}
+        {{>partial_response_mapping}}
+        {{>partial_auth}}
+        {{>partial_no_modify}}{{^-last}},{{/-last}}
+            {{/operation}}
+        {{/operations}}
+    ]
+}
