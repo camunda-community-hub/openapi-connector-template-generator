@@ -30,7 +30,7 @@ When you receive the message `GENERATOR SUCCESS`, you can find your templates in
 
 > ℹ️ Before using this templates in production, it is strongly recommended to clean them up!
 
-Run `sh ./generate.sh -h` for an overview of other arguments.
+Run `./generate.sh -h` for an overview of other arguments.
 
 ## Requirements
 
