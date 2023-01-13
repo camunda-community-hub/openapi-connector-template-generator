@@ -81,7 +81,7 @@
         },
 
         {{#operations}}
-            {{#operation}}            
+            {{#operation}}
         {{#allParams}}
         {
             "label": "{{paramName}}",
@@ -91,7 +91,7 @@
             "choices": [
                 {{#allowableValues}}{{#enumVars}}
                 { "name": {{{value}}}, "value": {{{value}}} }{{^-last}},{{/-last}}
-                {{/enumVars}}{{/allowableValues}}                    
+                {{/enumVars}}{{/allowableValues}}
             ],
             {{/isEnum}}
             {{^isEnum}}

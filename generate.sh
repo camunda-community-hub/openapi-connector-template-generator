@@ -62,6 +62,9 @@ if [ "$fast" != "t" ]; then
     cd generators/connectors-codegen
     mvn package -DskipTests
     cd -
+    cd postprocessor
+    mvn package -DskipTests
+    cd -
 fi
 
 rm -rf $out
@@ -106,23 +109,7 @@ for APIFILE in $out/element-templates/*.json; do
     mv tmp $APIFILE
 done
 
-# hacky replacement of body param block with prepared feel expression (map)
-for FILE in $out/includes/*.feel; do
-    FILENAME="${FILE##*/}"
-    REPLACE=\<${FILENAME%.*}\>
-    CONTENTS=$(cat $FILE)
-    # echo Including FEEL template from $FILENAME in...
-
-    for APIFILE in $out/element-templates/*.json; do
-        # echo - $APIFILE
-
-        if [ $os = "unix" ]; then
-            sed -i.bak "s@$REPLACE@$CONTENTS@g" $APIFILE && rm $APIFILE.bak
-        else
-            sed -i "s@$REPLACE@$CONTENTS@g" $APIFILE
-        fi
-    done
-done
+java -jar postprocessor/target/postprocessor-jar-with-dependencies.jar $out
 
 # append an optional prefix to the file name
 if [ "$prefix" != "" ]; then
