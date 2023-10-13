@@ -92,9 +92,7 @@ public class PostProcessor {
                             if (!m.matches()) {
                                 continue;
                             }
-                            String newString = m.replaceAll(matchResult -> {
-                                System.out.println(matchResult.group(1));
-                                return "=" + includeMap.get(matchResult.group(1));});
+                            String newString = m.replaceAll(matchResult -> "=" + includeMap.get(matchResult.group(1)));
                             ObjectNode propertyObj = (ObjectNode) property;
                             propertyObj.put("value", newString);
                         }

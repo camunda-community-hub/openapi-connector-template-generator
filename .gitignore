@@ -2,3 +2,6 @@ out
 generators/connectors-codegen/target
 .camunda
 **/.DS_Store
+target
+.vscode
+swagger.json

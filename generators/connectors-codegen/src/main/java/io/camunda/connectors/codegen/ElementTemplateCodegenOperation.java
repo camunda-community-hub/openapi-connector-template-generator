@@ -74,6 +74,5 @@ public class ElementTemplateCodegenOperation extends CodegenOperation {
       tmp = p.matcher(tmp).replaceAll(m -> "-" + m.group().toLowerCase());
     }
     this.camelCaseReturnType = CaseUtils.toCamelCase(tmp, true, '-', '_');
-    System.out.println("From: " + tmp + " To: " + this.camelCaseReturnType);
   }
 }
