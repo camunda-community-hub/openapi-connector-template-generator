@@ -1,5 +1,7 @@
 package io.camunda.connectors.codegen;
 
+import java.util.regex.Pattern;
+
 import org.apache.commons.text.CaseUtils;
 import org.openapitools.codegen.CodegenOperation;
 
@@ -65,6 +67,12 @@ public class ElementTemplateCodegenOperation extends CodegenOperation {
 
     this.isGETorDELETE = o.httpMethod.equals("GET") || o.httpMethod.equals("DELETE");
     this.sanitizedOperationId = o.operationId.replace("/", "_");
-    this.camelCaseReturnType = CaseUtils.toCamelCase(o.returnBaseType, true, '-');
+    // Required so that "BaseType-Trial" turns into "BaseTypeTrial" and not "BasetypeTrial"
+    String tmp = o.returnBaseType;
+    if (tmp != null) {
+      Pattern p = Pattern.compile("[A-Z]");
+      tmp = p.matcher(tmp).replaceAll(m -> "-" + m.group().toLowerCase());
+    }
+    this.camelCaseReturnType = CaseUtils.toCamelCase(tmp, true, '-', '_');
   }
 }

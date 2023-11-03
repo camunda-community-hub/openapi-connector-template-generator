@@ -1,1 +1,12 @@
-{\\n\\t//uncomment those that you want to assign\\n{{#models}}{{#model}}{{#parent}}{{#parentVars}}\\t//\\\"{{baseName}}\\\": response.body.{{baseName}}{{^-last}},{{/-last}} //{{baseType}}\\n{{/parentVars}}{{/parent}}{{#vars}}\\t//\\\"{{baseName}}\\\": response.body.{{baseName}}{{^-last}},{{/-last}} //{{baseType}}\\n{{/vars}}{{/model}}{{/models}}}
+{
+    //uncomment those that you want to assign
+    {{#models}}
+    {{#model}}
+    {{#parent}}
+    {{#parentVars}}//"{{baseName}}": response.body.{{baseName}}{{^-last}},{{/-last}} //{{baseType}}{{/parentVars}}
+    {{/parent}}
+    {{#vars}}//"{{baseName}}": response.body.{{baseName}}{{^-last}},{{/-last}} //{{baseType}}
+    {{/vars}}
+    {{/model}}
+    {{/models}}
+}
