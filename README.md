@@ -23,7 +23,7 @@ The OpenAPI standard defines a language-agnostic interface to REST APIs. Many AP
 Run it as follows:
 
 ```sh
-sh ./generate.sh -i schema.yaml -o targetDir
+bash ./generate.sh -i schema.yaml -o targetDir
 ```
 
 where `schema.yaml` is your OpenAPI schema, and `targetDir` is your targeted output directory for the Connector templates. Both JSON and YAML schemas are supported.
@@ -32,7 +32,7 @@ When you receive the message `GENERATOR SUCCESS`, you can find your templates in
 
 > ℹ️ Before using this templates in production, it is strongly recommended to clean them up!
 
-Run `sh ./generate.sh -h` for an overview of other arguments.
+Run `bash ./generate.sh -h` for an overview of other arguments.
 
 ## Requirements
 
