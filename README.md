@@ -6,7 +6,9 @@
 
 ![Compatible with: Camunda Platform 8](https://img.shields.io/badge/Compatible%20with-Camunda%20Platform%208-0072Ce)
 
-Please note: This repository is currently unmaintained. You can use it as an example. However please be aware that we are not going to be updating issues or pull requests on this repository.
+> This repository is archived given that Connector Templates can now be directly generated referencing OpenAPI via the Web Modeler - see [documentation](https://docs.camunda.io/docs/components/connectors/custom-built-connectors/connector-template-generator/).
+
+> Please note: This repository is currently unmaintained. You can use it as an example. However please be aware that we are not going to be updating issues or pull requests on this repository.
 
 This project is a simple, hacky implementation of an OpenAPI generator for HTTP/JSON Connector templates, written in Java and Shell. It allows you to rapidly create Connector templates for any REST API that provides an OpenAPI specification.
 
